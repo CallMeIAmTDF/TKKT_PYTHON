@@ -4,26 +4,20 @@ class PromptTemplates:
     ### **Định dạng JSON yêu cầu:**
     ```json
     {
-      "status": "success" | "error",
       "summary": "Tóm tắt bài blog (nếu thành công, giữ nguyên định dạng đặc biệt)",
-      "error": "Mô tả lỗi (nếu có, để null nếu không có lỗi)"
     }
     
     ### **📌 Ví dụ kết quả JSON mong muốn**
     **Khi thành công:**
     ```json
     {
-      "status": "success",
       "summary": "Đây là một bài blog về **AI và tương lai**. Trong bài viết, tác giả nhấn mạnh rằng *AI sẽ thay đổi thế giới*...",
-      "error": null
     }
     
     **Khi có lỗi:**
     ```json
     {
-      "status": "error",
       "summary": "",
-      "error": "Không thể tóm tắt bài blog do dữ liệu đầu vào quá ngắn."
     }
     
     Nội dung gốc: <<DATA_IAMTDF_1992003_HAHAHHAHAH>>

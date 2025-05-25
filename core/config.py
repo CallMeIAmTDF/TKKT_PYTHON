@@ -8,5 +8,4 @@ class Settings:
     GEMINI_KEY = os.getenv('GEMINI_KEY')
 
 
-
 settings = Settings()

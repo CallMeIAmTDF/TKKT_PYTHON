@@ -16,7 +16,7 @@ class FileWordRepository(IWordRepository):
 class FileURLRepository(IURLRepository):
     """Repository lấy URL nhạy cảm từ file"""
 
-    def __init__(self, url_file: str = "sensitive_urls.txt"):
+    def __init__(self, url_file: str = "./assets/sensitive_urls.txt"):
         self.url_file = url_file
 
     def get_sensitive_urls(self):

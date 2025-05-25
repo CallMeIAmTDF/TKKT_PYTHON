@@ -1,4 +1,5 @@
 import re
+from typing import Tuple
 from urllib.parse import urlparse
 
 from repositories.base import IURLRepository, IWordRepository
@@ -10,9 +11,10 @@ class WordFilterService:
     def __init__(self, repository: IWordRepository):
         self.repository = repository
 
-    def censor_text(self, content: str) -> str:
+    def censor_text(self, content: str) -> tuple[str, bool]:
         """Thay thế từ nhạy cảm bằng **"""
         sensitive_words = self.repository.get_sensitive_words()
+        has_sensitive = False
 
         def change_word(word):
             words = word.split(" ")
@@ -20,18 +22,18 @@ class WordFilterService:
             for w in words:
                 res = res + (
                     w[0] + '*' * (len(w) - 2) + w[-1] if len(w) > 2 else w[0] + "*" if len(w) == 2 else w) + " "
-            return res
+            return res.strip()
 
         def censor_word(match):
+            nonlocal has_sensitive
+            has_sensitive = True
             word = match.group()
-            # return word[0] + '*' * (len(word) - 2) + word[-1] if len(word) > 2 else word
-            # return '*' * len(word)
             return change_word(word)
 
         pattern = r"\b(" + "|".join(map(re.escape, sensitive_words)) + r")\b"
         censored_content = re.sub(pattern, censor_word, content, flags=re.IGNORECASE)
 
-        return censored_content
+        return censored_content, has_sensitive
 
 
 class URLFilterService:

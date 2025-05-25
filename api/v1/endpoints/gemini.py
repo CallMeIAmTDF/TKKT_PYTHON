@@ -8,6 +8,7 @@ router = APIRouter()
 
 service = AIService(settings.GEMINI_KEY)
 
+
 @router.post("/summary")
 async def summary(request: FilterRequest):
     result = service.process_input(user_input=request.content, prompt_template=PromptTemplates.SUMARY_PROMPT)
